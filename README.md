@@ -417,6 +417,25 @@ sudo vim index.html
 </html>
 ```
 
+`cd` back  `Books` and restart the server
+```
+cd ../..
+```
+```
+node server.js
+```
+<img width="1378" height="113" alt="Screenshot 2025-08-30 at 22 26 06" src="https://github.com/user-attachments/assets/2cd51a5a-17b3-4f6c-b7a7-a4f7ee005eeb" />
+
+Now allow port 3300 on your EC2 intance security group
+<img width="1234" height="167" alt="Screenshot 2025-08-30 at 22 31 40" src="https://github.com/user-attachments/assets/600b7d15-d9e3-4ff2-ba75-91f5f2d6ff33" />
+
+Access your book register application in browser.
+Your web application should appear as the image below:
+<img width="1493" height="578" alt="Screenshot 2025-08-30 at 22 21 35" src="https://github.com/user-attachments/assets/9ae98db7-d8ed-4318-b138-71edca17c322" />
+
+
+
+
 
 
 
