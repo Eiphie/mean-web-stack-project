@@ -8,6 +8,7 @@ MEAN is a Javascript-based full-stack framework for building dynamic web applica
 With the MEAN stack, you can use JavaScript consistently across the entire application: on the client side, server side, and for database interactions.
 
 ## Project SetUp
+Launch an ubuntu EC2 instane on AWS and follow the steps below:
 - Update and upgrade ubuntu
 ```
 sudo apt update
@@ -59,7 +60,7 @@ sudo systemctl start mongod
 sudo systemctl enable mongod
 ```
 
-- Cheack server status that it is active
+- Check server status that it is active
 ```
 sudo systemctl status mongod
 ```
@@ -69,7 +70,7 @@ sudo systemctl status mongod
 npm -v
 ```
 
-- Create a folder named ⁠`Book`
+- Create a folder named ⁠`Books`
 ```
 mkdir Books && cd Books
 ```
@@ -79,14 +80,40 @@ mkdir Books && cd Books
 npm init
 ```
 
-- Install `body parser` package
+- Install `body-parser` package
 ```
 sudo npm install body-parser
 ```
 
-- Add `server.js` file
+- Add `server.js` file and paste the code snippet below:
 ```
 sudo vim server.js
+```
+```javascript
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3300;
+
+// MongoDB connection
+mongoose.connect('mongodb://localhost:27017/test', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
+
+require('./apps/routes')(app);
+
+app.listen(PORT, () => {
+    console.log(`Server up: http://localhost:${PORT}`);
+});
 ```
 
 - Create a basic Express server
@@ -103,7 +130,7 @@ mkdir apps && cd apps
 ```
 sudo vim routes.js
 ```
-```
+```javascript
 const Book = require('./models/book');
 const path = require('path');
 
@@ -165,7 +192,7 @@ mkdir models && cd model
 ```
 sudo vim book.js
 ```
-```
+```javascript
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
@@ -192,7 +219,7 @@ mkdir public && cd public
 ```
 sudo vim script.js
 ```
-```
+```javascript
 angular.module('myApp', [])
     .controller('myCtrl', function ($scope, $http) {
         function fetchBooks() {
@@ -245,7 +272,7 @@ angular.module('myApp', [])
 ```
 sudo vim index.html
 ```
-```
+```html
 <!DOCTYPE html>
 <html ng-app="myApp" ng-controller="myCtrl">
 
